@@ -1,0 +1,531 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Modern Purple-Blue Theme */
+  --primary-purple: #8B5CF6;
+  --primary-blue: #3B82F6;
+  --accent-pink: #EC4899;
+  --accent-cyan: #06B6D4;
+
+  /* Backgrounds */
+  --bg-dark: #0F172A;
+  --bg-darker: #020617;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+
+  /* Glass Effect */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+
+  /* Gradients */
+  --gradient-main: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  --gradient-card: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-accent: linear-gradient(45deg, #EC4899, #8B5CF6);
+  --gradient-glow: linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(59, 130, 246, 0.3) 100%);
+}
+
+body {
+  @apply text-gray-100 font-sans antialiased overflow-x-hidden;
+  background: var(--bg-dark) !important;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.08) 0%, transparent 70%) !important;
+  min-height: 100vh;
+}
+
+.aiclassroom-input {
+  @apply w-full py-2 bg-transparent border-b border-gray-300 focus:border-google-blue outline-none transition-colors text-sm;
+}
+
+.aiclassroom-toggle {
+  @apply flex bg-gray-100 rounded-full p-1 w-fit;
+}
+
+.aiclassroom-toggle-btn {
+  @apply px-6 py-1.5 rounded-full text-sm font-medium transition-all;
+}
+
+.aiclassroom-toggle-btn.active {
+  @apply bg-google-blue text-white shadow-md;
+}
+
+.aiclassroom-toggle-btn.inactive {
+  @apply text-gray-500 hover:text-gray-700;
+}
+
+.yellow-blob-1 {
+  @apply fixed -top-20 -left-20 w-80 h-80 bg-[#FFD54F] rounded-full blur-[80px] opacity-20 -z-10;
+}
+
+.yellow-blob-2 {
+  @apply fixed -bottom-20 -right-20 w-96 h-96 bg-[#FFD54F] rounded-full blur-[100px] opacity-20 -z-10;
+}
+
+.google-card {
+  @apply bg-white border border-surface-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-hover hover:-translate-y-1;
+}
+
+.google-button {
+  @apply px-6 py-2 rounded-full font-medium transition-all duration-200 flex items-center justify-center gap-2;
+}
+
+.google-button-primary {
+  @apply bg-google-blue text-white hover:bg-blue-700 shadow-sm hover:shadow-lg hover:shadow-google-blue/20;
+}
+
+.google-button-outline {
+  @apply border border-surface-300 text-google-blue hover:bg-blue-50;
+}
+
+.google-input {
+  @apply w-full px-4 py-2 bg-white border border-surface-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-google-blue focus:border-transparent transition-all;
+}
+
+/* Glassmorphism sidebar */
+.sidebar-glass {
+  @apply bg-white/80 backdrop-blur-md border-r border-surface-200;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+/* Premium Shadows */
+.shadow-premium {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.shadow-hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Glass effect utilities */
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-surface-200 rounded-full;
+}
+
+/* AI Specific Styles */
+.ai-gradient-bg {
+  background: linear-gradient(135deg, #1A73E8 0%, #6200EE 100%);
+}
+
+.ai-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ai-card-glow {
+  position: relative;
+}
+
+.ai-card-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #1A73E8, #6200EE, #00C853);
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.ai-card-glow:hover::after {
+  opacity: 0.3;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 10px rgba(26, 115, 232, 0);
+  }
+}
+
+.text-gradient-ai {
+  background: linear-gradient(to right, #1A73E8, #6200EE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Markdown Content Styling for AI Responses */
+.markdown-content {
+  @apply text-gray-200;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  @apply font-bold text-gray-900 mt-4 mb-2;
+}
+
+.markdown-content h1 {
+  @apply text-xl;
+}
+
+.markdown-content h2 {
+  @apply text-lg;
+}
+
+.markdown-content h3 {
+  @apply text-base;
+}
+
+.markdown-content p {
+  @apply mb-3 leading-relaxed;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  @apply ml-4 mb-3 space-y-1;
+}
+
+.markdown-content ul {
+  @apply list-disc;
+}
+
+.markdown-content ol {
+  @apply list-decimal;
+}
+
+.markdown-content li {
+  @apply leading-relaxed;
+}
+
+.markdown-content strong {
+  @apply font-bold text-white;
+}
+
+.markdown-content code {
+  @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.markdown-content pre {
+  @apply bg-gray-100 p-3 rounded-lg overflow-x-auto mb-3;
+}
+
+.markdown-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.markdown-content blockquote {
+  @apply border-l-4 border-google-blue pl-4 italic text-gray-600 my-3;
+}
+
+/* ========================================
+   MODERN DESIGN SYSTEM - UTILITIES
+   ======================================== */
+
+/* Glass Effect */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-hover:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(139, 92, 246, 0.3);
+  box-shadow: 0 12px 48px rgba(139, 92, 246, 0.2);
+}
+
+/* 3D Card Effects */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(2deg) rotateY(2deg);
+}
+
+.card-3d-tilt:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(5deg) translateZ(20px);
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-main {
+  background: var(--gradient-main);
+}
+
+.bg-gradient-card {
+  background: var(--gradient-card);
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-accent);
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow Effects */
+.glow-purple {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4),
+    0 0 40px rgba(139, 92, 246, 0.2);
+}
+
+.glow-blue {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4),
+    0 0 40px rgba(59, 130, 246, 0.2);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.4),
+    0 0 40px rgba(236, 72, 153, 0.2);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.6),
+    0 0 60px rgba(59, 130, 246, 0.4);
+}
+
+/* Animated Gradient Border */
+.gradient-border {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 1rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--gradient-main);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Floating Animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse Glow Animation */
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.8),
+      0 0 60px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient Shimmer */
+@keyframes shimmer-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      rgba(139, 92, 246, 0.1) 0%,
+      rgba(236, 72, 153, 0.2) 50%,
+      rgba(139, 92, 246, 0.1) 100%);
+  background-size: 200% 200%;
+  animation: shimmer-gradient 3s ease infinite;
+}
+
+/* Modern Button */
+.btn-modern {
+  @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+  background: var(--gradient-main);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+}
+
+.btn-modern:active {
+  transform: translateY(0);
+}
+
+/* Glass Button */
+.btn-glass {
+  @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+.btn-glass:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+/* Neumorphic Card */
+.card-neumorphic {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  box-shadow:
+    8px 8px 16px rgba(0, 0, 0, 0.4),
+    -8px -8px 16px rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Backdrop Blur */
+.backdrop-blur-strong {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
