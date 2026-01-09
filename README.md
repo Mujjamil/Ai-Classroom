@@ -80,6 +80,16 @@ An intelligent classroom management system powered by AI that helps educators ma
 
 ## 🚀 Installation & Setup
 
+### Quick Clone
+
+```bash
+# Clone the repository
+git clone https://github.com/Mujjamil/Ai-Classroom.git
+
+# Navigate into the project
+cd Ai-Classroom
+```
+
 **Choose your operating system for detailed setup instructions:**
 
 ### 🍎 [macOS Setup Guide](SETUP_MACOS.md)

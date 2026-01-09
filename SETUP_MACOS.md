@@ -33,14 +33,14 @@ Before you begin, ensure you have the following installed:
 Open Terminal and run:
 
 ```bash
-# Navigate to Desktop
+# Navigate to your desired directory (e.g., Desktop)
 cd ~/Desktop
 
 # Clone the repository
-git clone <your-repository-url> ai-classroom-main
+git clone https://github.com/Mujjamil/Ai-Classroom.git
 
 # Navigate into the project
-cd ai-classroom-main
+cd Ai-Classroom
 ```
 
 ### Step 2: Backend Setup
@@ -162,7 +162,7 @@ Open a **NEW Terminal window** (⌘ + T):
 #### 3.1 Navigate to Frontend Directory
 
 ```bash
-cd ~/Desktop/ai-classroom-main/frontend
+cd ~/Desktop/Ai-Classroom/frontend
 ```
 
 #### 3.2 Install Node Dependencies
@@ -235,14 +235,14 @@ You need to run both servers every time you want to use the application:
 
 **Terminal 1 - Backend:**
 ```bash
-cd ~/Desktop/ai-classroom-main/backend
+cd ~/Desktop/Ai-Classroom/backend
 source venv/bin/activate
 python manage.py runserver
 ```
 
 **Terminal 2 - Frontend:**
 ```bash
-cd ~/Desktop/ai-classroom-main/frontend
+cd ~/Desktop/Ai-Classroom/frontend
 npm run dev
 ```
 
@@ -321,7 +321,7 @@ This is a known issue and won't affect core functionality. You can safely ignore
 
 ```bash
 # Navigate to project directory
-cd ~/Desktop/ai-classroom-main
+cd ~/Desktop/Ai-Classroom
 
 # Pull latest changes
 git pull

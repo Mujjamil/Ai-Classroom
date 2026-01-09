@@ -34,14 +34,14 @@ Before you begin, ensure you have the following installed:
 Open **Command Prompt** (Press `Win + R`, type `cmd`, press Enter):
 
 ```cmd
-:: Navigate to Desktop
+:: Navigate to your desired directory (e.g., Desktop)
 cd %USERPROFILE%\Desktop
 
 :: Clone the repository
-git clone <your-repository-url> ai-classroom-main
+git clone https://github.com/Mujjamil/Ai-Classroom.git
 
 :: Navigate into the project
-cd ai-classroom-main
+cd Ai-Classroom
 ```
 
 ### Step 2: Backend Setup
@@ -175,7 +175,7 @@ Open a **NEW Command Prompt window** (Press `Win + R`, type `cmd`, press Enter):
 #### 3.1 Navigate to Frontend Directory
 
 ```cmd
-cd %USERPROFILE%\Desktop\ai-classroom-main\frontend
+cd %USERPROFILE%\Desktop\Ai-Classroom\frontend
 ```
 
 #### 3.2 Install Node Dependencies
@@ -257,14 +257,14 @@ You need to run both servers every time you want to use the application:
 
 **Command Prompt 1 - Backend:**
 ```cmd
-cd %USERPROFILE%\Desktop\ai-classroom-main\backend
+cd %USERPROFILE%\Desktop\Ai-Classroom\backend
 venv\Scripts\activate
 python manage.py runserver
 ```
 
 **Command Prompt 2 - Frontend:**
 ```cmd
-cd %USERPROFILE%\Desktop\ai-classroom-main\frontend
+cd %USERPROFILE%\Desktop\Ai-Classroom\frontend
 npm run dev
 ```
 
@@ -368,7 +368,7 @@ This is a known issue and won't affect core functionality. You can safely ignore
 
 ```cmd
 :: Navigate to project directory
-cd %USERPROFILE%\Desktop\ai-classroom-main
+cd %USERPROFILE%\Desktop\Ai-Classroom
 
 :: Pull latest changes
 git pull
