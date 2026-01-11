@@ -902,6 +902,27 @@ def download_corrected_file(request):
                 font_size = int(size_match.group(1))
                 default_font_size = Pt(font_size)
         
+        # Extract tables from original DOCX if available
+        original_tables = []
+        if submission_id and file_extension in ['docx', 'doc']:
+            try:
+                submission = Submission.objects.get(id=submission_id)
+                if submission.file and submission.file.path.endswith('.docx'):
+                    original_doc = Document(submission.file.path)
+                    # Store table data (not the table objects themselves)
+                    for table in original_doc.tables:
+                        table_data = []
+                        for row in table.rows:
+                            row_data = []
+                            for cell in row.cells:
+                                row_data.append(cell.text)
+                            table_data.append(row_data)
+                        if table_data:  # Only add non-empty tables
+                            original_tables.append(table_data)
+            except Exception as e:
+                print(f"Could not extract tables: {e}")
+                pass
+        
         # Generate file based on original format
         if file_extension in ['docx', 'doc', 'pdf']:
             # Create DOCX file
@@ -944,6 +965,19 @@ def download_corrected_file(request):
                 elif '1.5' in instructions_lower:
                     line_spacing = 1.5
             
+            # Determine word spacing
+            word_spacing_pt = 0  # Default normal spacing
+            if formatting_instructions:
+                instructions_lower = formatting_instructions.lower()
+                if 'word spacing' in instructions_lower:
+                    # Try to extract specific value (e.g., "word spacing: 2pt")
+                    spacing_match = re.search(r'word\s*spacing[:\s]*(\d+(?:\.\d+)?)\s*pt', instructions_lower)
+                    if spacing_match:
+                        word_spacing_pt = float(spacing_match.group(1))
+                    else:
+                        # Default to 1pt expanded if mentioned without value
+                        word_spacing_pt = 1.0
+            
             # Add header if specified
             if formatting_instructions and 'header' in formatting_instructions.lower():
                 header = document.sections[0].header
@@ -980,6 +1014,10 @@ def download_corrected_file(request):
                     run.font.name = default_font_name
                     run.font.size = default_font_size
                     
+                    # Apply word spacing if specified
+                    if word_spacing_pt > 0:
+                        run.font.spacing = Pt(word_spacing_pt)
+                    
                     # Apply title formatting to first paragraph if specified
                     if idx == 0 and formatting_instructions:
                         instructions_lower = formatting_instructions.lower()
@@ -993,6 +1031,43 @@ def download_corrected_file(request):
                                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 else:
                     document.add_paragraph()  # Empty line
+            
+            # Add preserved tables if any
+            if original_tables:
+                from docx.enum.table import WD_TABLE_ALIGNMENT
+                
+                for table_data in original_tables:
+                    if not table_data:
+                        continue
+                    
+                    # Add spacing before table
+                    document.add_paragraph()
+                    
+                    # Create table
+                    num_rows = len(table_data)
+                    num_cols = len(table_data[0]) if table_data else 0
+                    new_table = document.add_table(rows=num_rows, cols=num_cols)
+                    
+                    # Copy cell content
+                    for i, row_data in enumerate(table_data):
+                        for j, cell_text in enumerate(row_data):
+                            if j < len(new_table.rows[i].cells):
+                                new_table.rows[i].cells[j].text = cell_text
+                    
+                    # Apply table formatting if specified
+                    if formatting_instructions:
+                        instructions_lower = formatting_instructions.lower()
+                        
+                        # Apply borders
+                        if 'border' in instructions_lower or 'table' in instructions_lower:
+                            new_table.style = 'Table Grid'
+                        
+                        # Apply alignment
+                        if 'center' in instructions_lower and 'table' in instructions_lower:
+                            new_table.alignment = WD_TABLE_ALIGNMENT.CENTER
+                    
+                    # Add spacing after table
+                    document.add_paragraph()
             
             # Save to bytes buffer
             buffer = io.BytesIO()
@@ -1256,15 +1331,20 @@ Return the corrected text now:"""
             
             # Check word spacing
             if 'word spacing' in instructions_lower:
-                formatting_issues.append("Check word spacing requirements (apply in Word/DOCX)")
+                spacing_match = re.search(r'word\s*spacing[:\s]*(\d+(?:\.\d+)?)\s*pt', instructions_lower)
+                if spacing_match:
+                    spacing_val = spacing_match.group(1)
+                    formatting_issues.append(f"Word spacing will be set to {spacing_val}pt")
+                else:
+                    formatting_issues.append("Word spacing will be set to 1pt (expanded)")
             
             # Check table formatting
             if 'table' in instructions_lower:
-                if 'align' in instructions_lower:
-                    formatting_issues.append("Table should be properly aligned (apply in Word/DOCX)")
+                formatting_issues.append("Table formatting will be applied to existing tables (DOCX only)")
+                if 'align' in instructions_lower or 'center' in instructions_lower:
+                    formatting_issues.append("Tables will be centered")
                 if 'border' in instructions_lower:
-                    formatting_issues.append("Table should have proper borders (apply in Word/DOCX)")
-                formatting_issues.append("Check table formatting requirements (apply in Word/DOCX)")
+                    formatting_issues.append("Tables will have grid borders")
         
         error_analysis = {
             'spelling_errors': spelling_errors,
